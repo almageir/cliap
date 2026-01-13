@@ -1,17 +1,13 @@
 ﻿cmake_minimum_required(VERSION 3.21)
 
-project (cliap VERSION 0.1.0 LANGUAGES C CXX)
+project(cliap VERSION 0.1.0 LANGUAGES C CXX)
 
-include(CMakeDependentOption)
+option(CLIAP_BUILD_TESTS "Enable cliap tests" OFF)
+option(CLIAP_STANDALONE_BUILD "Standalone cliap build" ON)
 
-set(CLIAP_MAIN_PROJECT OFF)
-if(CMAKE_CURRENT_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
-    set(CLIAP_MAIN_PROJECT ON)
+if(CLIAP_STANDALONE_BUILD)
+    set(CLIAP_BUILD_TESTS ON)
 endif()
-
-cmake_dependent_option(CLIAP_BUILD_TESTS
-    "Enable cliap tests" ON
-    "CLIAP_MAIN_PROJECT" OFF)
 
 add_library(cliap STATIC)
 add_library(cliap::cliap ALIAS cliap)
@@ -23,8 +19,8 @@ target_sources(cliap
         src/parser.cpp
     PUBLIC
         FILE_SET HEADERS
-    FILES
-        include/cliap/cliap.h
+        FILES
+            include/cliap/cliap.h
 )
 
 target_compile_features(cliap PUBLIC cxx_std_17)
