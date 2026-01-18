@@ -12,7 +12,7 @@ namespace cliap
         explicit Arg(std::string name);
         Arg& short_name(std::string short_name);
         Arg& long_name(std::string long_name);
-        Arg& default_value(std::string default_value);
+        Arg& set_default(std::string default_value);
         Arg& description(std::string description);
         Arg& value(std::string value);
         Arg& required();

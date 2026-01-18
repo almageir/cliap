@@ -13,7 +13,7 @@ TEST_SUITE("Testing cliap::Arg" * doctest::description("Class cliap::Arg tests")
             .short_name("-t")
             .long_name("--test")
             .description("test parameter")
-            .default_value("127.0.0.1")
+            .set_default("127.0.0.1")
             .value("192.168.1.1")
             .required()
             .flag()};
@@ -70,7 +70,7 @@ TEST_SUITE("Testing cliap::ArgParser" * doctest::description("Class cliap::ArgPa
         SUBCASE("Checking the number of parameters added") {
             cli_parser
                 .add_parameter(cliap::Arg().short_name("-h").long_name("--help").flag().description("show help message"))
-                .add_parameter(cliap::Arg().short_name("-p").long_name("--port").required().default_value("8080").description("listen port"))
+                .add_parameter(cliap::Arg().short_name("-p").long_name("--port").required().set_default("8080").description("listen port"))
                 .add_parameter(cliap::Arg().short_name("-a").long_name("--ip-address").required().description("ip address"));
 
             REQUIRE(cli_parser.parameters_count() == 3);
@@ -114,7 +114,7 @@ TEST_SUITE("Testing cliap::ArgParser" * doctest::description("Class cliap::ArgPa
         cliap::ArgParser cli_parser;
         cli_parser
             .add_parameter(cliap::Arg().short_name("-h").long_name("--help").flag().description("show help message"))
-            .add_parameter(cliap::Arg().short_name("-p").long_name("--port").required().default_value("8080").description("listen port"))
+            .add_parameter(cliap::Arg().short_name("-p").long_name("--port").required().set_default("8080").description("listen port"))
             .add_parameter(cliap::Arg().short_name("-a").long_name("--ip-address").required().description("ip address"));
 
         cli_parser.parse(argc, const_cast<char**>(argv));
@@ -140,8 +140,8 @@ TEST_SUITE("Testing cliap::ArgParser" * doctest::description("Class cliap::ArgPa
         cliap::ArgParser cli_parser;
         cli_parser
             .add_parameter(cliap::Arg().short_name("-h").long_name("--help").flag().description("show help message"))
-            .add_parameter(cliap::Arg().short_name("-p").long_name("--port").required().default_value("8080").description("listen port"))
-            .add_parameter(cliap::Arg().short_name("-a").long_name("--ip-address").default_value("127.0.0.1").description("ip address"));
+            .add_parameter(cliap::Arg().short_name("-p").long_name("--port").required().set_default("8080").description("listen port"))
+            .add_parameter(cliap::Arg().short_name("-a").long_name("--ip-address").set_default("127.0.0.1").description("ip address"));
 
         cli_parser.parse(args);
 
@@ -161,7 +161,7 @@ TEST_SUITE("Testing cliap::ArgParser" * doctest::description("Class cliap::ArgPa
         cliap::ArgParser cli_parser;
         cli_parser
             .add_parameter(cliap::Arg().short_name("-h").long_name("--help").flag().description("show help message"))
-            .add_parameter(cliap::Arg().short_name("-p").long_name("--port").required().default_value("8080").description("listen port"))
+            .add_parameter(cliap::Arg().short_name("-p").long_name("--port").required().set_default("8080").description("listen port"))
             .add_parameter(cliap::Arg().short_name("-ia").long_name("--ip-address").required().description("ip address"));
 
         cli_parser.parse(argc, const_cast<char**>(argv));

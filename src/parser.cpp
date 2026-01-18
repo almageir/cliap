@@ -148,7 +148,7 @@ namespace cliap
         return *this;
     }
 
-    Arg& Arg::default_value(std::string default_value)
+    Arg& Arg::set_default(std::string default_value)
     {
         default_value_ = std::move(default_value);
         return *this;
@@ -265,8 +265,9 @@ namespace cliap
         for (const auto& parm : params)
             adjust_fmt_max_field_lengths(parm);
 
-        std::cout << "Usage: \n";
         print_usage_examples();
+
+        std::cout << "Parameters:\n";
 
         for (const auto& parm : params) {
             std::cout << tab << "-" << std::left << std::setw(max_short_param_name_length_) << parm->short_name() << "";
@@ -329,21 +330,25 @@ namespace cliap
 
     void ArgParser::print_usage_examples() const
     {
+        if (usage_examples_.empty())
+            return;
+
+        std::cout << "Usage: " << std::endl;
+
         static const std::string tab(4, ' ');
         for (const auto& str : usage_examples_)
             std::cout << tab << str << std::endl;
-        std::cout << std::endl;
     }
 
     void ArgParser::adjust_fmt_max_field_lengths(const ArgPtr& p)
     {
         if (p) {
             if (p->long_name().size() > max_long_param_name_length_)
-                max_long_param_name_length_ = p->long_name().size();
+                max_long_param_name_length_ = static_cast<int>(p->long_name().size());
             if (p->short_name().size() > max_short_param_name_length_)
-                max_short_param_name_length_ = p->short_name().size();
+                max_short_param_name_length_ = static_cast<int>(p->short_name().size());
             if (p->default_value().size() > max_default_param_value_length_)
-                max_default_param_value_length_ = p->default_value().size();
+                max_default_param_value_length_ = static_cast<int>(p->default_value().size());
         }
     }
 

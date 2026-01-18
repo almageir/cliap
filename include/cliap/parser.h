@@ -12,9 +12,9 @@
 namespace cliap
 {
     class ArgParser {
-        using ArgPtr = std::shared_ptr<cliap::Arg>;
+        using ArgPtr = std::shared_ptr<Arg>;
     public:
-        ArgParser& add_parameter(cliap::Arg parm);
+        ArgParser& add_parameter(Arg parm);
 
         std::optional<std::string> parse(const std::vector<std::string>& args);
 
@@ -42,7 +42,7 @@ namespace cliap
             return static_cast<std::size_t>(std::count_if(
                 std::cbegin(params),
                 std::cend(params),
-                [](const auto& ptr) mutable { return ptr->is_required(); }
+                [](const auto& ptr) mutable { return ptr->is_required() && ptr->value().empty(); }
             ));
         }
 

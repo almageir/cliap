@@ -4,6 +4,7 @@ project(cliap VERSION 0.1.0 LANGUAGES C CXX)
 
 option(CLIAP_BUILD_TESTS "Enable cliap tests" OFF)
 option(CLIAP_STANDALONE_BUILD "Standalone cliap build" ON)
+option(CLIAP_BUILD_EXAMPLES "Build examples" OFF)
 
 if(CLIAP_STANDALONE_BUILD)
     set(CLIAP_BUILD_TESTS ON)
@@ -38,6 +39,9 @@ if(CLIAP_BUILD_TESTS)
     add_subdirectory(test)
 endif()
 
+if(CLIAP_BUILD_EXAMPLES)
+    add_subdirectory(examples/basic_usage)
+endif()
 
 include(GNUInstallDirs)
 install(TARGETS cliap
