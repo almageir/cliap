@@ -283,9 +283,7 @@ namespace cliap
                 std::cout << " [required]";
 
             if (!parm->default_value().empty())
-                std::cout << " (default: " << std::setw(max_default_param_value_length_) << parm->default_value() << ")";
-            else
-                std::cout << std::string(max_default_param_value_length_ + tab.size(), ' ');
+                std::cout << " (default: " << parm->default_value() << ")";
 
             std::cout << "\n";
         }
@@ -306,7 +304,6 @@ namespace cliap
 
         max_long_param_name_length_ = 0;
         max_short_param_name_length_ = 0;
-        max_default_param_value_length_ = 0;
     }
 
     std::vector<ArgParser::ArgPtr> ArgParser::all_params() const {
@@ -347,8 +344,6 @@ namespace cliap
                 max_long_param_name_length_ = static_cast<int>(p->long_name().size());
             if (p->short_name().size() > max_short_param_name_length_)
                 max_short_param_name_length_ = static_cast<int>(p->short_name().size());
-            if (p->default_value().size() > max_default_param_value_length_)
-                max_default_param_value_length_ = static_cast<int>(p->default_value().size());
         }
     }
 

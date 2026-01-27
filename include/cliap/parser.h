@@ -53,7 +53,6 @@ namespace cliap
 
         int max_long_param_name_length_{};
         int max_short_param_name_length_{};
-        int max_default_param_value_length_{};
 
         Arg empty_arg_{};
     };
